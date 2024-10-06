@@ -1,0 +1,3 @@
+2024-10-07 02:17:13,128 - INFO - SignedUp Success Fully!{'sina': {'id': 0, 'username': 'sina', 'password': 'sina123', 'phone_number': '123124'}}
+2024-10-07 02:20:43,166 - INFO - SignedUp Success Fully!{'sina': {'id': 0, 'username': 'sina', 'password': 'sina123', 'phone_number': '213123'}}
+2024-10-07 02:20:49,420 - INFO - user logged in successfully{'sina': {'id': 0, 'username': 'sina', 'password': 'sina123', 'phone_number': '213123'}}

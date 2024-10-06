@@ -1,5 +1,12 @@
+import logging
 import os
 import getpass
+
+logging.basicConfig(
+    filename='cinematicket.log',  
+    level=logging.INFO, 
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 def clear_terminal():
     if os.name == 'posix':
         os.system('clear')
@@ -16,6 +23,7 @@ class User:
             if(username in self.users):
                 if(username == self.users[username]["username"]) and (password == self.users[username]["password"]):
                     clear_terminal()
+                    logging.info(f'user logged in successfully{self.users}')
                     print("\n\n\n  You've Logged in successfully! \n\n\n ")
                     return True
                 else:
@@ -23,6 +31,7 @@ class User:
                     print("\n\n\n Wrong user or password! \n\n\n ")
         else:
             clear_terminal()
+            
             print("\n\n\n    Please SignUp First!      \n\n\n")
     def signup(self,username,password,phone_number=None):
         self.username = username
@@ -31,6 +40,7 @@ class User:
                                         #چک کردن تکراری نبودن نام کاربری
         if(username in self.users):
             clear_terminal()
+            logging.info(f'invalid username entered')
             print("\n\n\n  Your username is Already Taken! \n\n\n ")
         else:
                                         #چک کردن طول رمزعبور
@@ -43,6 +53,7 @@ class User:
                     'phone_number':phone_number,
                 }
             clear_terminal()
+            logging.info(f'SignedUp Successfully!{self.users}')
             print("\n\n\n  You've been signed up successfully! \n\n\n ")
     def updateusername(self,newuser):
         user = self.username
@@ -52,15 +63,17 @@ class User:
         self.users.pop(user)
         self.username = newuser
         clear_terminal()
-        print("Successfully Done!")
+        logging.info(f'Username Updated!{self.users}')
+        print("Username Update Successfully Done!")
 
     def updatephonenumber(self,newphone):
         name =self.username
         self.users[name].pop("phone_number")
         self.users[name]["phone_number"] = newphone
         self.phone_number = newphone
-        clear_terminal()       
-        print("Successfully Done!")
+        clear_terminal()   
+        logging.info(f'Phone Number Updated!{self.users}')    
+        print("Phone Number Update Successfully Done!")
     def changepass(self,old,new):
         name =self.username
         if(self.users[name]['password'] == old):
@@ -76,6 +89,7 @@ class User:
 
 sina = User("sinatbtb","Arman12A")
 def print_menu():
+
     print("0.Exit")
     print("1.SignUp")
     print("2.Login")
