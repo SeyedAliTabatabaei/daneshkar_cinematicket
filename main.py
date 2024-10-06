@@ -1,4 +1,10 @@
+import os
 import getpass
+def clear_terminal():
+    if os.name == 'posix':
+        os.system('clear')
+    elif os.name == 'nt':
+        os.system('cls')
 class User:
     def __init__(self,username,password):
         self.username = username
@@ -9,11 +15,14 @@ class User:
         if(len(self.users) > 0):
             if(username in self.users):
                 if(username == self.users[username]["username"]) and (password == self.users[username]["password"]):
+                    clear_terminal()
                     print("\n\n\n  You've Logged in successfully! \n\n\n ")
                     return True
                 else:
+                    clear_terminal()
                     print("\n\n\n Wrong user or password! \n\n\n ")
         else:
+            clear_terminal()
             print("\n\n\n    Please SignUp First!      \n\n\n")
     def signup(self,username,password,phone_number=None):
         self.username = username
@@ -21,6 +30,7 @@ class User:
         self.phone_number = phone_number
                                         #چک کردن تکراری نبودن نام کاربری
         if(username in self.users):
+            clear_terminal()
             print("\n\n\n  Your username is Already Taken! \n\n\n ")
         else:
                                         #چک کردن طول رمزعبور
@@ -32,8 +42,8 @@ class User:
                     'password':password,
                     'phone_number':phone_number,
                 }
+            clear_terminal()
             print("\n\n\n  You've been signed up successfully! \n\n\n ")
-            print(self.users)
     def updateusername(self,newuser):
         user = self.username
         self.users[user].pop("username")
@@ -41,8 +51,7 @@ class User:
         self.users[newuser]= self.users[user]
         self.users.pop(user)
         self.username = newuser
-        print (self.users)
-       
+        clear_terminal()
         print("Successfully Done!")
 
     def updatephonenumber(self,newphone):
@@ -50,8 +59,7 @@ class User:
         self.users[name].pop("phone_number")
         self.users[name]["phone_number"] = newphone
         self.phone_number = newphone
-        print (self.users)
-       
+        clear_terminal()       
         print("Successfully Done!")
     def changepass(self,old,new):
         name =self.username
@@ -59,8 +67,9 @@ class User:
             self.users[name].pop("password")
             self.users[name]["password"] = new
             self.password = new
-            print (self.users)
+            clear_terminal()
         else:
+            clear_terminal()
             print("Your password is Wrong")
     def __str__(self):
         return f"UserName : {self.username} PhoneNumber : {self.phone_number}"
@@ -87,14 +96,17 @@ while(True):
         user = str(input("Enter your username:   "))
         pwd =getpass.getpass("Enter Your password:   ")
         if(sina.checklogin(user,pwd)):
+           
             print("1.SeeMyProfile")
             print("2.Edit  Username / Phonenumber")
             print("3.Change Password")
             print("4.Back To Main Menu")
             userinp = input(" \n Choose An option:")
             if(userinp == "1"):
+                clear_terminal()
                 print(sina)
             if(userinp == "2"):
+                clear_terminal()
                 print("1.Edit Username")
                 print("2.Edit Phonenumber")
                 userinp = input(" \n Choose An option:")
@@ -111,6 +123,7 @@ while(True):
                 if(userinp2 == userinp3):
                     sina.changepass(userinp,userinp2)
                 else:
+                    clear_terminal()
                     print("Your New Password and Repeat is Not the Same")
             if(userinp == "4"):
-              pass
+              clear_terminal()
