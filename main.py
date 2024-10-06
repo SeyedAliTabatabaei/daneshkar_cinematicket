@@ -1,7 +1,8 @@
+import json
 import logging
 import os
 import getpass
-
+    
 logging.basicConfig(
     filename='cinematicket.log',  
     level=logging.INFO, 
@@ -17,6 +18,14 @@ class User:
         self.username = username
         self.password = password
         self.users = usersdict = {}
+        
+        with open('data.json', 'r') as f:
+            try:
+                data = json.load(f)
+                if(data):
+                    self.users= data
+            except json.JSONDecodeError:
+                pass     
         usercount = 0
     def checklogin(self,username,password):
         if(len(self.users) > 0):
@@ -52,6 +61,8 @@ class User:
                     'password':password,
                     'phone_number':phone_number,
                 }
+            with open('data.json', 'w') as f:
+                json.dump(self.users, f)
             clear_terminal()
             logging.info(f'SignedUp Successfully!{self.users}')
             print("\n\n\n  You've been signed up successfully! \n\n\n ")

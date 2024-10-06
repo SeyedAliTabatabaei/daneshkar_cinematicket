@@ -1,3 +1,9 @@
 2024-10-07 02:17:13,128 - INFO - SignedUp Success Fully!{'sina': {'id': 0, 'username': 'sina', 'password': 'sina123', 'phone_number': '123124'}}
 2024-10-07 02:20:43,166 - INFO - SignedUp Success Fully!{'sina': {'id': 0, 'username': 'sina', 'password': 'sina123', 'phone_number': '213123'}}
 2024-10-07 02:20:49,420 - INFO - user logged in successfully{'sina': {'id': 0, 'username': 'sina', 'password': 'sina123', 'phone_number': '213123'}}
+2024-10-07 02:53:32,332 - INFO - SignedUp Successfully!{'sina': {'id': 0, 'username': 'sina', 'password': 'sina123', 'phone_number': '232413431'}}
+2024-10-07 02:58:58,748 - INFO - SignedUp Successfully!{'sina': {'id': 0, 'username': 'sina', 'password': 'sinaq123', 'phone_number': '12123213'}}
+2024-10-07 02:59:09,164 - INFO - invalid username entered
+2024-10-07 02:59:16,345 - INFO - SignedUp Successfully!{'sina': {'id': 0, 'username': 'sina', 'password': 'sinaq123', 'phone_number': '12123213'}, 'sina123': {'id': 1, 'username': 'sina123', 'password': 'sina123', 'phone_number': '23131'}}
+2024-10-07 02:59:20,085 - INFO - user logged in successfully{'sina': {'id': 0, 'username': 'sina', 'password': 'sinaq123', 'phone_number': '12123213'}, 'sina123': {'id': 1, 'username': 'sina123', 'password': 'sina123', 'phone_number': '23131'}}
+2024-10-07 02:59:31,921 - INFO - invalid username entered
