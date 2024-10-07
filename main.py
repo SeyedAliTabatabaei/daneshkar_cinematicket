@@ -1,8 +1,10 @@
+from datetime import datetime 
 import json
 import logging
 import os
 import getpass
-    
+
+now = datetime.now()  
 logging.basicConfig(
     filename='cinematicket.log',  
     level=logging.INFO, 
@@ -14,9 +16,12 @@ def clear_terminal():
     elif os.name == 'nt':
         os.system('cls')
 class User:
-    def __init__(self,username,password):
+    def __init__(self,username,password,birthdate,regdate,phone_number):
         self.username = username
         self.password = password
+        self.birthdate = birthdate
+        self.regdate = regdate
+        self.phone_number = phone_number
         self.users = usersdict = {}
         
         with open('data.json', 'r') as f:
@@ -31,7 +36,18 @@ class User:
         if(len(self.users) > 0):
             if(username in self.users):
                 if(username == self.users[username]["username"]) and (password == self.users[username]["password"]):
+
                     clear_terminal()
+                    with open('data.json', 'r') as f:
+                        try:
+                            data = json.load(f)
+                            userdata = data[username]
+                            if(userdata):
+                                self.birthdate = userdata['birthdate']
+                                self.regdate = userdata['regdate']
+                                self.phone_number = userdata['phone_number']
+                        except json.JSONDecodeError:
+                            pass   
                     logging.info(f'user logged in successfully{self.users}')
                     print("\n\n\n  You've Logged in successfully! \n\n\n ")
                     return True
@@ -42,9 +58,11 @@ class User:
             clear_terminal()
             
             print("\n\n\n    Please SignUp First!      \n\n\n")
-    def signup(self,username,password,phone_number=None):
+    def signup(self,username,password,birthdate,phone_number=None):
         self.username = username
         self.password = password
+        self.birthdate = birthdate
+        self.regdate = str(now)
         self.phone_number = phone_number
                                         #چک کردن تکراری نبودن نام کاربری
         if(username in self.users):
@@ -59,6 +77,8 @@ class User:
                     'id':len(self.users),
                     'username':username,
                     'password':password,
+                    'birthdate':birthdate,
+                    'regdate':str(now),
                     'phone_number':phone_number,
                 }
             with open('data.json', 'w') as f:
@@ -96,9 +116,9 @@ class User:
             clear_terminal()
             print("Your password is Wrong")
     def __str__(self):
-        return f"UserName : {self.username} PhoneNumber : {self.phone_number}"
+        return f"UserName : {self.username} PhoneNumber : {self.phone_number} Birthdate : {self.birthdate} Registered Date : {self.regdate}"
 
-sina = User("sinatbtb","Arman12A")
+sina = User("sina","sina123","1381/28/06","","")
 def print_menu():
 
     print("0.Exit")
@@ -115,13 +135,14 @@ while(True):
     if(userinp == "1"):
         user = str(input("Enter your username:   "))
         pwd =getpass.getpass("Enter Your password:   ")
-        phonenum = input("Enter your phone number:   ")
-        sina.signup(user,pwd,phonenum)
+        birthdate =input("Enter Your Birthdate:   ")
+        phonenum = input("Enter your phone number(Optional):   ")
+        sina.signup(user,pwd,birthdate,phonenum)
     if(userinp == "2"):
         user = str(input("Enter your username:   "))
         pwd =getpass.getpass("Enter Your password:   ")
         if(sina.checklogin(user,pwd)):
-           
+            
             print("1.SeeMyProfile")
             print("2.Edit  Username / Phonenumber")
             print("3.Change Password")
