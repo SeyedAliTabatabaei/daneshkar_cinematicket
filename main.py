@@ -62,6 +62,7 @@ while(True):
                 if(userinp =="4"):
                     while True:
                         bnkinit =bank.bnkinit
+                
                         print("1.Create Account")
                         print("2.MyAccounts")
                         print("3.Back")
@@ -82,9 +83,17 @@ while(True):
                             firstbalance =input("First deposit Amount(At least 10$):")
                             pswd =input("Enter your Bank Account Password:")
                             cvv2 = input("Enter Your Cvv2 Pin:")
-                            bnkinit.create_account(currentuser,firstbalance,bankname,pswd,cvv2)
+                            createacc = bnkinit.create_account(currentuser,firstbalance,bankname,pswd,cvv2)
+                            if(createacc):
+                                k.clear_terminal()
+                                print("Your Bank Account has been opened SuccessFully!")
                         if(usrbankinp == "2"):
-                            bnkinit.accountlist(currentuser)
+                            k.clear_terminal()
+                            listbank = bnkinit.accountlist(currentuser)
+                            for key,value in listbank.items():
+                                print(f'{key}.{value}')
+                            break
+
                               
                 if(userinp == "5"):
                     k.clear_terminal()

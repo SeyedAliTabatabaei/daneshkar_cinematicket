@@ -31,10 +31,14 @@ class banksystem:
         except:
             pass
         selectbank = self.bankdata[user].keys()
+        i = 0
+        bnklist = {}
         for key in selectbank:
-            print(key)
+            bnklist[i] = key
+            i =+ 1
+        return bnklist
 
-    def getbalance(self,user):
+    def getbalance(self,user,bank):
         pass
     def deposit(self):
         pass
