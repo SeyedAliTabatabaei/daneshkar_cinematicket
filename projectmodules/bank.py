@@ -1,3 +1,4 @@
+import json
 class banksystem:
     def __init__(self):
         self.bankdata = {}
@@ -19,11 +20,21 @@ class banksystem:
             self.bankdata[user] = {
                 bankname:databnk,
             }
+        with open('bankdata.json','w') as file:
+            json.dump(self.bankdata,file)
 
-        print(self.bankdata)
-        return self.bankdata
+            return self.bankdata
+    def accountlist(self,user):
+        try:
+            with open('bankdata.json','r') as file:
+               self.bankdata= json.load(file)
+        except:
+            pass
+        selectbank = self.bankdata[user].keys()
+        for key in selectbank:
+            print(key)
 
-    def getbalance(self):
+    def getbalance(self,user):
         pass
     def deposit(self):
         pass

@@ -60,28 +60,32 @@ while(True):
                         k.clear_terminal()
                         print("Your New Password and Repeat is Not the Same")
                 if(userinp =="4"):
-                    bnkinit =bank.bnkinit
-                    print("1.Create Account")
-                    print("2.MyAccounts")
-                    print("3.Back")
-                    usrinp = input("Choose One Option:")
-                    if(usrinp == "1"):
-                        print("1.Saman")
-                        print("2.Melli")
-                        print("3.Sepah")
-                        bankselect = {
-                            '1':'saman',
-                            '2':'melli',
-                            '3':'sepah',
-                        }
-                        bankinp =input("Choose The Bank You Want to Create Account:")
-                        if(bankinp in bankselect):
-                            bankname = bankselect[bankinp]
+                    while True:
+                        bnkinit =bank.bnkinit
+                        print("1.Create Account")
+                        print("2.MyAccounts")
+                        print("3.Back")
+                        usrbankinp = input("Choose One Option:")
+                        if(usrbankinp == "1"):
+                            print("1.Saman")
+                            print("2.Melli")
+                            print("3.Sepah")
+                            bankselect = {
+                                '1':'saman',
+                                '2':'melli',
+                                '3':'sepah',
+                            }
+                            bankinp =input("Choose The Bank You Want to Create Account:")
+                            if(bankinp in bankselect):
+                                bankname = bankselect[bankinp]
 
-                        firstbalance =input("First deposit Amount(At least 10$):")
-                        pswd =input("Enter your Bank Account Password:")
-                        cvv2 = input("Enter Your Cvv2 Pin:")
-                        bnkinit.create_account(currentuser,firstbalance,bankname,pswd,cvv2)
+                            firstbalance =input("First deposit Amount(At least 10$):")
+                            pswd =input("Enter your Bank Account Password:")
+                            cvv2 = input("Enter Your Cvv2 Pin:")
+                            bnkinit.create_account(currentuser,firstbalance,bankname,pswd,cvv2)
+                        if(usrbankinp == "2"):
+                            bnkinit.accountlist(currentuser)
+                              
                 if(userinp == "5"):
                     k.clear_terminal()
                     break
