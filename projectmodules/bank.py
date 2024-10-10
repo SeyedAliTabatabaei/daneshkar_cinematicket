@@ -16,12 +16,14 @@ class banksystem:
         }
         if(user in self.bankdata):
             self.bankdata[user][bankname] = databnk
+            with open('bankdata.json','w') as file:
+                json.dump(self.bankdata,file)
         else:
             self.bankdata[user] = {
                 bankname:databnk,
             }
-        with open('bankdata.json','w') as file:
-            json.dump(self.bankdata,file)
+            with open('bankdata.json','w') as file:
+                json.dump(self.bankdata,file)
 
             return self.bankdata
     def accountlist(self,user):
@@ -30,18 +32,38 @@ class banksystem:
                self.bankdata= json.load(file)
         except:
             pass
-        selectbank = self.bankdata[user].keys()
-        i = 0
-        bnklist = {}
-        for key in selectbank:
-            bnklist[i] = key
-            i =+ 1
-        return bnklist
+        if(user in self.bankdata):
+                selectbank = self.bankdata[user].keys()
+                i = 0
+                bnklist = []
+                for key in selectbank:
+                    bnklist.append(key)
+                return bnklist
+        return False
 
-    def getbalance(self,user,bank):
-        pass
-    def deposit(self):
-        pass
+    def getbalance(self,user,bank,pwd,cvv2):
+        selectedbank = self.bankdata[user][bank]
+        bankpass = selectedbank['password']
+        bankcvv2 = selectedbank['cvv2']
+        if(bankpass == pwd and bankcvv2 == cvv2):
+            balance = self.bankdata[user][bank]['balance']
+            print(f"Your Current Balance : {balance}$")
+        else:
+            print("Invalid Credentials!")
+        
+    def deposit(self,user,bank,amount,pwd,cvv2):
+        selectedbank = self.bankdata[user][bank]
+        bankpass = selectedbank['password']
+        bankcvv2 = selectedbank['cvv2']
+        if(bankpass == pwd and bankcvv2 == cvv2):
+            balancestr = self.bankdata[user][bank]['balance']
+            balanceint = int(balancestr) + int(amount) 
+            self.bankdata[user][bank]['balance'] = str(balanceint)
+            with open('bankdata.json','w') as file:
+                json.dump(self.bankdata,file)  
+            return True
+        else:
+            print("Invalid Credentials!")
     def withdraw(self):
         pass
     def transfer(self):

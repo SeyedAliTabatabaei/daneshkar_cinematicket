@@ -1,1 +1,1 @@
-{"sina": {"melli": {"bank": "melli", "balance": "200", "password": "sina234", "cvv2": "12344"}, "saman": {"bank": "saman", "balance": "2000", "password": "sina1234", "cvv2": "23232"}, "sepah": {"bank": "sepah", "balance": "2323", "password": "2323", "cvv2": "23"}}}
+{"sina": {"sepah": {"bank": "sepah", "balance": "2700", "password": "sina", "cvv2": "1234"}, "saman": {"bank": "saman", "balance": "35400", "password": "sina", "cvv2": "1234"}, "melli": {"bank": "melli", "balance": "5600", "password": "sina", "cvv2": "1234"}}}

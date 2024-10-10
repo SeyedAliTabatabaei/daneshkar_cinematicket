@@ -90,8 +90,51 @@ while(True):
                         if(usrbankinp == "2"):
                             k.clear_terminal()
                             listbank = bnkinit.accountlist(currentuser)
-                            for key,value in listbank.items():
-                                print(f'{key}.{value}')
+                            if(listbank):
+                                while(True):
+                                    counter = 0
+                                    for i in listbank:
+                                        print(f"{counter}.{i}")
+                                        counter += 1
+                                    print(f"{len(listbank)}.back")
+                                    selectedbank = input("Choose An Option:")
+                                    if(int(selectedbank) == len(listbank)):
+                                        k.clear_terminal()
+                                        break
+                                    else:
+                                        selectedbank = int(selectedbank)
+                                        selectedbank = listbank[selectedbank]
+                                        
+                                        k.clear_terminal()
+                                        print(f" MR/MRS {currentuser} Welcome To Your {selectedbank} Bank Account! \n ")
+                                        while(True):
+                                            print("1.Balance")
+                                            print("2.Deposit")
+                                            print("3.Tranfer Money")
+                                            print("4.Upgrade Your Subscription to Pro")
+                                            print("5.Back")
+                                            bnkmnginp = input("Choose an Option:")
+                                            if(bnkmnginp == "1"):
+                                                k.clear_terminal()
+                                                pwd = getpass.getpass("Enter Your Bank Password:")
+                                                cvv2 = getpass.getpass("Enter Your Cvv2 Pin :")
+                                                bnkinit.getbalance(currentuser,selectedbank,pwd,cvv2)
+                                            if(bnkmnginp == "2"):
+                                                k.clear_terminal()
+                                                pwd = getpass.getpass("Enter Your Bank Password:")
+                                                cvv2 = getpass.getpass("Enter Your Cvv2 Pin :")
+                                                amount = input("Enter Amount You Want to Deposit:")
+                                                if(bnkinit.deposit(currentuser,selectedbank,amount,pwd,cvv2)):
+                                                    print("Deposit Succesfully Done!")
+                                            if(bnkmnginp == "5"):
+                                                k.clear_terminal()
+                                                break
+
+                            else:
+                                k.clear_terminal()
+                                print("Please Create an Account First! \n")
+                        if(usrbankinp == "3"):
+                            k.clear_terminal()
                             break
 
                               
