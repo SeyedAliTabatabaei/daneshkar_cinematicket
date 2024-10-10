@@ -110,9 +110,10 @@ while(True):
                                         while(True):
                                             print("1.Balance")
                                             print("2.Deposit")
-                                            print("3.Tranfer Money")
-                                            print("4.Upgrade Your Subscription to Pro")
-                                            print("5.Back")
+                                            print("3.Withdraw")
+                                            print("4.Transfer Money")
+                                            print("5.Upgrade Your Subscription")
+                                            print("6.Back")
                                             bnkmnginp = input("Choose an Option:")
                                             if(bnkmnginp == "1"):
                                                 k.clear_terminal()
@@ -126,7 +127,30 @@ while(True):
                                                 amount = input("Enter Amount You Want to Deposit:")
                                                 if(bnkinit.deposit(currentuser,selectedbank,amount,pwd,cvv2)):
                                                     print("Deposit Succesfully Done!")
-                                            if(bnkmnginp == "5"):
+                                            if(bnkmnginp == "3"):
+                                                k.clear_terminal()
+                                                pwd = getpass.getpass("Enter Your Bank Password:")
+                                                cvv2 = getpass.getpass("Enter Your Cvv2 Pin :")
+                                                amount = input("Enter Amount You Want to Withdraw:")
+                                                if(bnkinit.withdraw(currentuser,selectedbank,amount,pwd,cvv2)):
+                                                    print("Withdraw Succesfully Done!")
+                                            if(bnkmnginp == "4"):
+                                                k.clear_terminal()
+                                                cnt= 0
+                                                bnklist = bnkinit.transferablebanks(currentuser,selectedbank)
+                                                for bnk in bnklist:
+                                                    print(f"{cnt}.{bnk}")
+                                                    cnt += 1
+                                                targetbank = int(input("Choose an Option:"))
+                                                targetbank = bnklist[targetbank]
+                                                pwd = getpass.getpass("Enter Your Bank Password:")
+                                                cvv2 = getpass.getpass("Enter Your Cvv2 Pin :")
+                                                amount = input("Enter Amount You Want to Withdraw:")
+                                                
+                                                if(bnkinit.transfer(currentuser,selectedbank,targetbank,amount,pwd,cvv2)):
+                                                    k.clear_terminal()
+                                                    print("Transfer Succesfully Done!")
+                                            if(bnkmnginp == "6"):
                                                 k.clear_terminal()
                                                 break
 

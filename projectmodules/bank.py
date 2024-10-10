@@ -64,9 +64,46 @@ class banksystem:
             return True
         else:
             print("Invalid Credentials!")
-    def withdraw(self):
-        pass
-    def transfer(self):
-        pass
+    def withdraw(self,user,bank,amount,pwd,cvv2):
+        selectedbank = self.bankdata[user][bank]
+        bankpass = selectedbank['password']
+        bankcvv2 = selectedbank['cvv2']
+        if(bankpass == pwd and bankcvv2 == cvv2):
+            balancestr = self.bankdata[user][bank]['balance']
+            balanceint = int(balancestr) - int(amount) 
+            self.bankdata[user][bank]['balance'] = str(balanceint)
+            with open('bankdata.json','w') as file:
+                json.dump(self.bankdata,file)  
+            return True
+        else:
+            print("Invalid Credentials!")
+    def transferablebanks(self,user,currentbank):
+        try:
+            with open('bankdata.json','r') as file:
+               self.bankdata= json.load(file)
+        except:
+            pass
+        reslist = []
+        for bank in self.bankdata[user]:
+            if(not bank == currentbank):
+                reslist.append(bank)
+        return reslist
+    def transfer(self,user,currentbank,targetbank,amount,pwd,cvv2):
+        try:
+            with open('bankdata.json','r') as file:
+               self.bankdata= json.load(file)
+        except:
+            pass
+        startbank = self.bankdata[user][currentbank]
+        targetbank = self.bankdata[user][targetbank]
+        targetbalance = int(targetbank['balance'])
+        targetbalance += int(amount)
+        startbankbalance = int(startbank['balance'])
+        startbankbalance -= int(amount)
+        startbank['balance'] = startbankbalance
+        targetbank['balance'] = targetbalance
+        with open('bankdata.json','w') as file:
+            json.dump(self.bankdata,file)  
+        return True
 
 bnkinit = banksystem()
