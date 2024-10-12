@@ -115,15 +115,39 @@ class banksystem:
 
     def deposit(self,user,bank,amount,pwd,cvv2):
         selectedbank = self.bankdata[user][bank]
+        usersub = selectedbank['subscription']
+        silverdiscount = False
+        golddiscount = False
+        if(usersub == "silver"):
+            remain = selectedbank['silver_cashback_remaining']
+            if(remain >= 1):
+                remain = remain - 1
+                selectedbank['silver_cashback_remaining'] = remain
+                silverdiscount = True
+            if(remain == 0):
+                usersub = selectedbank['subscription'] = "bronze"
+                selectedbank.pop('silver_cashback_remaining')  
+                silverdiscount = True
+        if(usersub == "gold"):
+            end = datetime.fromisoformat(selectedbank['gold_cashback_end_date'])
+            remaining = datetime.now() - end
+            if(remaining.days >= 1):
+                golddiscount =True
+        if(silverdiscount):
+            amount = int(amount)
+            amount = amount + (amount * 0.20) 
+        if(golddiscount):
+            amount = amount + (amount * 0.50)
         bankpass = selectedbank['password']
         bankcvv2 = selectedbank['cvv2']
         if(bankpass == pwd and bankcvv2 == cvv2):
             balancestr = self.bankdata[user][bank]['balance']
             balanceint = int(balancestr) + int(amount) 
             self.bankdata[user][bank]['balance'] = str(balanceint)
+            res = [True,silverdiscount,golddiscount]
             with open('bankdata.json','w') as file:
                 json.dump(self.bankdata,file)  
-            return True
+            return res
         else:
             print("Invalid Credentials!")
     def withdraw(self,user,bank,amount,pwd,cvv2):
