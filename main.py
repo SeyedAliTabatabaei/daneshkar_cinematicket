@@ -155,7 +155,10 @@ while(True):
                                                 while(True):
                                                     print(f"Your Current Plan : {subscription} \n")
                                                     if(not subscription == "bronze"):
-                                                        print(f"Plan Remaining : {bnkinit.remaining(currentuser,selectedbank)}")
+                                                        if(subscription == "silver"):
+                                                            print(f"Plan Remaining Transaction Cashbacks: {bnkinit.remaining(currentuser,selectedbank)}")
+                                                        if(subscription == "gold"):
+                                                            print(f"Plan Remaining Days: {bnkinit.remaining(currentuser,selectedbank)}")
                                                     print("1.Silver Plan | 10$ ")
                                                     print("2.Gold Plan | 30$")
                                                     print("3.Back")
