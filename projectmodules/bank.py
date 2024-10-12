@@ -1,18 +1,21 @@
+from datetime import datetime, timedelta
 import json
 class banksystem:
     def __init__(self):
         self.bankdata = {}
-    def create_account(self,user,firstbalance,bankname,pwd,cvv2):
+    def create_account(self,user,firstbalance,bankname,pwd,cvv2,subscription='bronze'):
         self.user = user
         self.firstbalance = firstbalance
         self.bankname = bankname
         self.pwd = pwd
         self.cvv2 = cvv2
+        self.subscription = subscription
         databnk = {
             'bank':bankname,
             'balance':firstbalance,
             'password':pwd,
             'cvv2':cvv2,
+            'subscription':subscription
         }
         if(user in self.bankdata):
             self.bankdata[user][bankname] = databnk
@@ -50,7 +53,66 @@ class banksystem:
             print(f"Your Current Balance : {balance}$")
         else:
             print("Invalid Credentials!")
-        
+    def getsub(self,user,bank):
+        selectedbank = self.bankdata[user][bank]   
+        plan = selectedbank['subscription']
+        return plan
+    def remaining(self,user,bank):
+        selectedbank = self.bankdata[user][bank]   
+        plan = selectedbank['subscription']
+        if(plan == "silver"):
+            remaining = selectedbank['silver_cashback_remaining']
+        if(plan == "gold"):
+            remaining = selectedbank['gold_cashback_end_date']
+            remaining = datetime.fromisoformat(remaining)
+            remaining  = (remaining - datetime.now()).days
+        return remaining
+    def update_sub(self,user,bank,subtype,pwd,cvv2):
+        result = "There Was a Problem Updating Your plan"
+        selectedbank = self.bankdata[user][bank]
+        bankpass = selectedbank['password']
+        bankcvv2 = selectedbank['cvv2']
+        if(bankpass == pwd and bankcvv2 == cvv2): 
+            subscription = selectedbank['subscription']
+            change_sub = False
+            if(subtype =="silver"):
+                if(subscription =="bronze"):
+                    subscription = "silver"
+                    amount = 10
+                    change_sub = True
+                else:
+                    result = f"You Are using {subscription} plan already!"
+            if(subtype =="gold"):
+                if(subscription == "bronze" or subscription == "silver"):
+                    subscription = "gold"
+                    amount =30
+                    change_sub = True
+                else:
+                   result = f"You Are using {subscription} plan already!"
+            balancestr = self.bankdata[user][bank]['balance']
+            selectedbank['subscription'] = subscription
+            if(subscription == "silver"):
+                selectedbank['silver_cashback_remaining'] = 3
+            if(subscription == "gold"):
+                current_time = datetime.now()
+                one_month_later = current_time + timedelta(days=30)
+                selectedbank['gold_cashback_end_date'] = (one_month_later.isoformat())
+            if(change_sub):
+                if(int(balancestr) > int(amount)):
+                    balanceint = int(balancestr) - int(amount) 
+                    self.bankdata[user][bank]['balance'] = str(balanceint)
+                    result = f"Your Subscription Updated to {subtype}!"
+                    with open('bankdata.json','w') as file:
+                        json.dump(self.bankdata,file) 
+                else:
+                    result = "Your Balance is Not Enough!"
+        else:
+            result = "Invalid Credentials!"
+        return result 
+
+
+      
+
     def deposit(self,user,bank,amount,pwd,cvv2):
         selectedbank = self.bankdata[user][bank]
         bankpass = selectedbank['password']
@@ -70,11 +132,13 @@ class banksystem:
         bankcvv2 = selectedbank['cvv2']
         if(bankpass == pwd and bankcvv2 == cvv2):
             balancestr = self.bankdata[user][bank]['balance']
-            balanceint = int(balancestr) - int(amount) 
-            self.bankdata[user][bank]['balance'] = str(balanceint)
-            with open('bankdata.json','w') as file:
-                json.dump(self.bankdata,file)  
-            return True
+            if(int(balancestr) > int(amount)):
+                balanceint = int(balancestr) - int(amount) 
+                self.bankdata[user][bank]['balance'] = str(balanceint)
+                with open('bankdata.json','w') as file:
+                    json.dump(self.bankdata,file)  
+            else:
+                print("Your Balance is Not Enough!")
         else:
             print("Invalid Credentials!")
     def transferablebanks(self,user,currentbank):

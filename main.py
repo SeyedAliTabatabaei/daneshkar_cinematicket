@@ -104,9 +104,9 @@ while(True):
                                     else:
                                         selectedbank = int(selectedbank)
                                         selectedbank = listbank[selectedbank]
-                                        
+                                        subscription = bnkinit.getsub(currentuser,selectedbank)
                                         k.clear_terminal()
-                                        print(f" MR/MRS {currentuser} Welcome To Your {selectedbank} Bank Account! \n ")
+                                        print(f" MR/MRS {currentuser} Welcome To Your {selectedbank} Bank Account! You're Using {subscription} Plan! \n ")
                                         while(True):
                                             print("1.Balance")
                                             print("2.Deposit")
@@ -150,6 +150,33 @@ while(True):
                                                 if(bnkinit.transfer(currentuser,selectedbank,targetbank,amount,pwd,cvv2)):
                                                     k.clear_terminal()
                                                     print("Transfer Succesfully Done!")
+                                            if(bnkmnginp == "5"):
+                                                k.clear_terminal()
+                                                while(True):
+                                                    print(f"Your Current Plan : {subscription} \n")
+                                                    if(not subscription == "bronze"):
+                                                        print(f"Plan Remaining : {bnkinit.remaining(currentuser,selectedbank)}")
+                                                    print("1.Silver Plan | 10$ ")
+                                                    print("2.Gold Plan | 30$")
+                                                    print("3.Back")
+                                                    bnkmnginp = input("Choose an Option:")
+                                                    if(bnkmnginp == "1"):
+                                                        pwd = getpass.getpass("Enter Your Bank Password:")
+                                                        cvv2 = getpass.getpass("Enter Your Cvv2 Pin :")
+                                                        updatesub =bnkinit.update_sub(currentuser,selectedbank,"silver",pwd,cvv2)
+                                                        k.clear_terminal()
+                                                        print(updatesub)
+                                                        subscription = "silver"
+                                                    if(bnkmnginp == "2"):
+                                                        pwd = getpass.getpass("Enter Your Bank Password:")
+                                                        cvv2 = getpass.getpass("Enter Your Cvv2 Pin :")
+                                                        updatesub =bnkinit.update_sub(currentuser,selectedbank,"gold",pwd,cvv2)
+                                                        k.clear_terminal()
+                                                        print(updatesub)
+                                                        subscription = "gold"                                                     
+                                                    if(bnkmnginp == "3"):
+                                                        k.clear_terminal()
+                                                        break
                                             if(bnkmnginp == "6"):
                                                 k.clear_terminal()
                                                 break
