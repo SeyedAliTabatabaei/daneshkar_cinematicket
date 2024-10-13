@@ -3,6 +3,11 @@ import json
 class banksystem:
     def __init__(self):
         self.bankdata = {}
+        try:
+            with open('bankdata.json','r') as file:
+                self.bankdata= json.load(file)
+        except:
+            pass
     def create_account(self,user,firstbalance,bankname,pwd,cvv2,subscription='bronze'):
         self.user = user
         self.firstbalance = firstbalance
@@ -42,6 +47,8 @@ class banksystem:
                 for key in selectbank:
                     bnklist.append(key)
                 return bnklist
+        else:
+            print("There is no Such User")
         return False
 
     def getbalance(self,user,bank,pwd,cvv2):
@@ -67,6 +74,14 @@ class banksystem:
             remaining = datetime.fromisoformat(remaining)
             remaining  = (remaining - datetime.now()).days
         return remaining
+    def update_username(self,user,newuser):
+        self.user = user
+        newdata=self.bankdata[user]
+        del self.bankdata[user]
+        self.user = newuser
+        self.bankdata[newuser] = newdata
+        with open('bankdata.json', 'w') as f:
+            json.dump(self.bankdata, f)
     def update_sub(self,user,bank,subtype,pwd,cvv2):
         result = "There Was a Problem Updating Your plan"
         selectedbank = self.bankdata[user][bank]

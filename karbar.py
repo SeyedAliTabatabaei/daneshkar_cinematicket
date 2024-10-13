@@ -1,7 +1,9 @@
+from projectmodules import bank
 from datetime import datetime 
 import json
 import logging
 import os
+
 now = datetime.now()  
 logging.basicConfig(
     filename='cinematicket.log',  
@@ -14,10 +16,12 @@ def clear_terminal():
     elif os.name == 'nt':
         os.system('cls')
 class User:
-    def __init__(self,username,password,birthdate,regdate,phone_number):
+    def __init__(self,username,password,birthday,birthmonth,birthyear,regdate,phone_number):
         self.username = username
         self.password = password
-        self.birthdate = birthdate
+        self.birthday = birthday
+        self.birthmonth = birthmonth
+        self.birthyear = birthyear
         self.regdate = regdate
         self.phone_number = phone_number
         self.users = usersdict = {}
@@ -28,7 +32,8 @@ class User:
                 if(data):
                     self.users= data
             except json.JSONDecodeError:
-                pass     
+                pass 
+          
         usercount = 0
     def checklogin(self,username,password):
         if(len(self.users) > 0):
@@ -43,7 +48,9 @@ class User:
                             if(userdata):
                                 self.username = userdata['username']
                                 self.password = userdata['password']
-                                self.birthdate = userdata['birthdate']
+                                self.birthday = userdata['birthday']
+                                self.birthmonth = userdata['birthmonth']
+                                self.birthyear = userdata['birthyear']
                                 self.regdate = userdata['regdate']
                                 self.phone_number = userdata['phone_number']
                         except json.JSONDecodeError:
@@ -58,10 +65,12 @@ class User:
             clear_terminal()
             
             print("\n\n\n    Please SignUp First!      \n\n\n")
-    def signup(self,username,password,birthdate,phone_number=None):
+    def signup(self,username,password,birthday,birthmonth,birthyear,phone_number=None):
         self.username = username
         self.password = password
-        self.birthdate = birthdate
+        self.birthday = birthday
+        self.birthmonth = birthmonth
+        self.birthyear = birthyear
         self.regdate = str(now)
         self.phone_number = phone_number
                                         #چک کردن تکراری نبودن نام کاربری
@@ -77,7 +86,9 @@ class User:
                     'id':len(self.users),
                     'username':username,
                     'password':password,
-                    'birthdate':birthdate,
+                    'birthday':birthday,
+                    'birthmonth':birthmonth,
+                    'birthyear':birthyear,
                     'regdate':str(now),
                     'phone_number':phone_number,
                 }
@@ -87,15 +98,24 @@ class User:
             logging.info(f'SignedUp Successfully!{self.users}')
             print("\n\n\n  You've been signed up successfully! \n\n\n ")
     def updateusername(self,newuser):
+        bnk = bank.banksystem()
         user = self.username
+        value = bnk.bankdata[user]
+        bnk.bankdata[newuser] = value
+        del bnk.bankdata[user]
+        with open('bankdata.json', 'w') as f:
+            json.dump(bnk.bankdata, f)
+
         self.users[user].pop("username")
         self.users[user]["username"] = newuser
         self.users[newuser]= self.users[user]
         self.users.pop(user)
         self.username = newuser
+         
         with open('data.json', 'w') as f:
             json.dump(self.users, f)
-        clear_terminal()
+
+        
         logging.info(f'Username Updated!{self.users}')
         print("Username Update Successfully Done!")
 
@@ -124,4 +144,4 @@ class User:
             clear_terminal()
             print("Your password is Wrong")
     def __str__(self):
-        return f"UserName : {self.username} PhoneNumber : {self.phone_number} Birthdate : {self.birthdate} Registered Date : {self.regdate}"
+        return f"UserName : {self.username} PhoneNumber : {self.phone_number} Birthdate : {self.birthyear} /  {self.birthmonth} / {self.birthday} Registered Date : {self.regdate}"

@@ -1,8 +1,9 @@
 from projectmodules import bank
+from datetime import datetime
 import getpass
 import karbar as k
-
-sina = k.User("sina","sina123","1381/28/06","","")
+now = datetime.now()
+sina = k.User("sina","sina","19","09","2002","","")
 def print_menu():
 
     print("0.Exit")
@@ -19,9 +20,12 @@ while(True):
     if(userinp == "1"):
         user = str(input("Enter your username:   "))
         pwd =getpass.getpass("Enter Your password:   ")
-        birthdate =input("Enter Your Birthdate:   ")
+        birthyear =input("Enter The Year of Your Birthday (Example: 2002):   ")
+        birthmonth =input("Enter The Month of Your Birthday(Example: (01)):   ")
+        birthday =input("Enter The Day of Your Birthday (Example : 06):   ")
+    
         phonenum = input("Enter your phone number(Optional):   ")
-        sina.signup(user,pwd,birthdate,phonenum)
+        sina.signup(user,pwd,birthday,birthmonth,birthyear,phonenum)
     if(userinp == "2"):
         user = str(input("Enter your username:   "))
         pwd =getpass.getpass("Enter Your password:   ")
@@ -45,6 +49,8 @@ while(True):
                     if(userinp == "1"):
                         userinp = input('Enter Your new Username')
                         sina.updateusername(userinp)
+                        currentuser = userinp
+                        bnkinit = bank.bnkinit
                     if(userinp =="2"):
                         userinp = input('Enter Your New phone number')
                         sina.updatephonenumber(userinp)
@@ -106,7 +112,9 @@ while(True):
                                         selectedbank = listbank[selectedbank]
                                         subscription = bnkinit.getsub(currentuser,selectedbank)
                                         k.clear_terminal()
-                                        print(f" MR/MRS {currentuser} Welcome To Your {selectedbank} Bank Account! You're Using {subscription} Plan! \n ")
+                                        print(f"\n \n MR/MRS {currentuser} Welcome To Your {selectedbank} Bank Account! You're Using {subscription} Plan!")
+                                        print(f"Today : {now.strftime('%Y')} - {now.strftime('%d')} - {now.strftime('%m')}")
+                                        print("---------------------")
                                         while(True):
                                             print("1.Balance")
                                             print("2.Deposit")
@@ -126,13 +134,14 @@ while(True):
                                                 cvv2 = getpass.getpass("Enter Your Cvv2 Pin :")
                                                 amount = input("Enter Amount You Want to Deposit:")
                                                 depo = bnkinit.deposit(currentuser,selectedbank,amount,pwd,cvv2)
-                                                if(depo[0]):                                                   
-                                                    print("Deposit Succesfully Done!")
+                                                if(depo[0]):   
+                                                    k.clear_terminal()                                                
+                                                    print(f"{amount}$ Deposit Succesfully Done!")
                                                     if(depo[1]):    
                                                         print(f"Extra {int(amount) * 0.20}$ Added To Your Wallet For Silver Plan!")
                                                     if(depo[2]):
-                                                        print(f"Extra {int(amount) * 0.50}$ Added To Your Wallet For Gold Plan!")
-
+                                                        print(f"Extra {int(amount) * 0.50}$ Added To Your Wallet For Gold Plan!))")
+                                                        print("Take Your Free Energy Drink!")
                                             if(bnkmnginp == "3"):
                                                 k.clear_terminal()
                                                 pwd = getpass.getpass("Enter Your Bank Password:")
