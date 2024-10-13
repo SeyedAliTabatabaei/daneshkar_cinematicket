@@ -130,13 +130,17 @@ class banksystem:
                 silverdiscount = True
         if(usersub == "gold"):
             end = datetime.fromisoformat(selectedbank['gold_cashback_end_date'])
-            remaining = datetime.now() - end
-            if(remaining.days >= 1):
+            remaining =  end - datetime.now()
+            if(int(remaining.days) >= 1):
                 golddiscount =True
+            else:
+                print("Your Gold Plan Expired")
+                print(remaining.days)
         if(silverdiscount):
             amount = int(amount)
             amount = amount + (amount * 0.20) 
         if(golddiscount):
+            amount = int(amount)
             amount = amount + (amount * 0.50)
         bankpass = selectedbank['password']
         bankcvv2 = selectedbank['cvv2']

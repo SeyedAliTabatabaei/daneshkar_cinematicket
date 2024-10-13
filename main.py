@@ -131,7 +131,7 @@ while(True):
                                                     if(depo[1]):    
                                                         print(f"Extra {int(amount) * 0.20}$ Added To Your Wallet For Silver Plan!")
                                                     if(depo[2]):
-                                                        print(f"Extra {int(amount) * 0.50}$ Added To Your Wallet For Silver Plan!")
+                                                        print(f"Extra {int(amount) * 0.50}$ Added To Your Wallet For Gold Plan!")
 
                                             if(bnkmnginp == "3"):
                                                 k.clear_terminal()
