@@ -98,13 +98,16 @@ class User:
             logging.info(f'SignedUp Successfully!{self.users}')
             print("\n\n\n  You've been signed up successfully! \n\n\n ")
     def updateusername(self,newuser):
+        
         bnk = bank.banksystem()
         user = self.username
-        value = bnk.bankdata[user]
-        bnk.bankdata[newuser] = value
-        del bnk.bankdata[user]
-        with open('bankdata.json', 'w') as f:
-            json.dump(bnk.bankdata, f)
+        if(user in bnk.bankdata):
+            value = bnk.bankdata[user]
+            bnk.bankdata[newuser] = value
+            del bnk.bankdata[user]
+            with open('bankdata.json', 'w') as f:
+                json.dump(bnk.bankdata, f)
+            
 
         self.users[user].pop("username")
         self.users[user]["username"] = newuser
