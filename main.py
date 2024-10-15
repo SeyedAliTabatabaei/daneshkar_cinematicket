@@ -247,7 +247,7 @@ while(True):
                                     k.clear_terminal()
                                     break
                         if(userinp4 == "2"):
-                            k.clear_terminal
+                            k.clear_terminal()
                             break
                 if(userinp == "6"):
                     k.clear_terminal()

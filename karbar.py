@@ -22,13 +22,14 @@ class role(Enum):
     ADMIN = "admin"
 class User:
     def __init__(self):
-        with open('data.json', 'r') as f:
-            try:
+        self.users = {}
+        try:
+            with open('data.json', 'r') as f:        
                 data = json.load(f)
                 if(data):
                     self.users= data
-            except json.JSONDecodeError:
-                pass 
+        except:
+            pass
     def checklogin(self,username,password):
         if(len(self.users) > 0):
             if(username in self.users):
@@ -143,6 +144,13 @@ class User:
             clear_terminal()
             print("Your password is Wrong")
     def getbirthdata(self,user):
+        with open('data.json', 'r') as f:
+            try:
+                data = json.load(f)
+                if(data):
+                    self.users= data
+            except json.JSONDecodeError:
+                pass 
         day = self.users[user]['birthday']
         month = self.users[user]['birthmonth']
         year = self.users[user]['birthyear']

@@ -15,15 +15,22 @@ class managecinema:
         mylist = self.data.keys()
         counter = 1
         res = {}
-
+        amount = 100
         for movie in mylist:
-            print(f'{counter}. Movie : {movie} | Time : {self.data[movie]['time']} | Seats Left : {self.data[movie]['seats_left']} | Age Limit : {self.data[movie]['age_limit']}')   
+            print(f' {counter}. Price : {amount}$ | Movie : {movie} | Time : {self.data[movie]['time']} | Seats Left : {self.data[movie]['seats_left']} | Age Limit : {self.data[movie]['age_limit']}')   
             res[counter] = movie
             counter += 1
         print(f'\n For Exit Type "exit" \n')    
         return res
     def book_seat(self,movie,user):
+        amount = 100
         birthdaylist = userobj.getbirthdata(user)
+        if(birthdaylist[1] == now.strftime('%m') and birthdaylist[2] == now.strftime("%d")):
+            k.clear_terminal()
+            amount = amount * 0.5
+            print(f"Congrats! It's Your Birthday!!! ") 
+            print(f"50% Discount Applied For Your Birthday ")
+            print(f"Ticket Amount Will Be {amount} Instead Of {amount*2}")
         age_limit = self.data[movie]['age_limit']
         seats_left = self.data[movie]['seats_left']
         self.data[movie]['seats_left'] = int(seats_left) - 1
@@ -33,8 +40,7 @@ class managecinema:
                 if(seats_left >= 1):
                     if(int(time) > int(now.strftime('%H'))):
                         k.clear_terminal()
-                        print(f'{movie} Movie At {time} Reservation Completed! \n')
-                        print(now.strftime('%H'))
+                        print(f'Ticket Price : {amount}$ Successfully Payed!  - {movie} Movie At {time}:00 Reservation Completed! \n')
                         with open("showtimes.json",'w') as f:
                             json.dump(self.data,f)
                     else:
