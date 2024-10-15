@@ -1,9 +1,11 @@
-from projectmodules import bank
+from projectmodules import bank,cinema
 from datetime import datetime
 import getpass
 import karbar as k
+
 now = datetime.now()
-sina = k.User("sina","sina","19","09","2002","","")
+sina = k.User()
+k.clear_terminal()
 def print_menu():
 
     print("0.Exit")
@@ -18,15 +20,33 @@ while(True):
         break
 
     if(userinp == "1"):
-        user = str(input("Enter your username:   "))
-        pwd =getpass.getpass("Enter Your password:   ")
-        birthyear =input("Enter The Year of Your Birthday (Example: 2002):   ")
-        birthmonth =input("Enter The Month of Your Birthday(Example: (01)):   ")
-        birthday =input("Enter The Day of Your Birthday (Example : 06):   ")
-    
-        phonenum = input("Enter your phone number(Optional):   ")
-        sina.signup(user,pwd,birthday,birthmonth,birthyear,phonenum)
+        while(True):
+            print("1.User")
+            print("2.Admin")
+            print("3.Back")
+            userinput =input("Choose An Option(1-3):")
+            if(userinput == "1"):
+                user = str(input("Enter your username:   "))
+                pwd =getpass.getpass("Enter Your password:   ")
+                birthyear =input("Enter The Year of Your Birthday (Example: 2002):   ")
+                birthmonth =input("Enter The Month of Your Birthday(Example: (01)):   ")
+                birthday =input("Enter The Day of Your Birthday (Example : 06):   ")
+                phonenum = input("Enter your phone number(Optional):   ")
+                sina.signup(user,pwd,birthday,birthmonth,birthyear,"user",phonenum)
+            if(userinput == "2"):
+                
+                user = str(input("Enter your username:   "))
+                pwd =getpass.getpass("Enter Your password:   ")
+                birthyear =input("Enter The Year of Your Birthday (Example: 2002):   ")
+                birthmonth =input("Enter The Month of Your Birthday(Example: (01)):   ")
+                birthday =input("Enter The Day of Your Birthday (Example : 06):   ")
+                phonenum = input("Enter your phone number(Optional):   ")
+                sina.signup(user,pwd,birthday,birthmonth,birthyear,"admin",phonenum)
+            if(userinput == "3"):
+                k.clear_terminal()
+                break
     if(userinp == "2"):
+        k.clear_terminal()
         user = str(input("Enter your username:   "))
         pwd =getpass.getpass("Enter Your password:   ")
         if(sina.checklogin(user,pwd)):
@@ -35,8 +55,9 @@ while(True):
                 print("1.SeeMyProfile")
                 print("2.Edit  Username / Phonenumber")
                 print("3.Change Password")
-                print("4.MyBank")
-                print("5.Back To Main Menu")
+                print("4.MyBanks")
+                print("5.Cinema")
+                print("6.Back To Main Menu")
                 userinp = input(" \n Choose An option:")
                 if(userinp == "1"):
                     k.clear_terminal()
@@ -207,5 +228,27 @@ while(True):
 
                               
                 if(userinp == "5"):
+                    k.clear_terminal()
+                    while(True):
+                        print("1.Movie-Show-Times")
+                        print("2.Back")
+                        userinp4 =input("Choose An Option(1-2)")
+                        if(userinp4 == "1"):
+                            k.clear_terminal()
+                            while(True):
+                                cinemaobj =cinema.managecinema()
+                                mydict = cinemaobj.showtimelist()
+                                userinp5 =input("Choose An Option(1-2):   ")
+                                if(not userinp5 == "exit"):
+                                    inpint = int(userinp5)
+                                    selectedmovie = mydict[inpint]
+                                    cinemaobj.book_seat(selectedmovie,currentuser)
+                                if(userinp5 == "exit"):
+                                    k.clear_terminal()
+                                    break
+                        if(userinp4 == "2"):
+                            k.clear_terminal
+                            break
+                if(userinp == "6"):
                     k.clear_terminal()
                     break

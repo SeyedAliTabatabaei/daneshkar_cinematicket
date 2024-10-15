@@ -1,5 +1,6 @@
 from projectmodules import bank
 from datetime import datetime 
+from enum import Enum
 import json
 import logging
 import os
@@ -15,17 +16,12 @@ def clear_terminal():
         os.system('clear')
     elif os.name == 'nt':
         os.system('cls')
+
+class role(Enum):
+    USER = "user"
+    ADMIN = "admin"
 class User:
-    def __init__(self,username,password,birthday,birthmonth,birthyear,regdate,phone_number):
-        self.username = username
-        self.password = password
-        self.birthday = birthday
-        self.birthmonth = birthmonth
-        self.birthyear = birthyear
-        self.regdate = regdate
-        self.phone_number = phone_number
-        self.users = usersdict = {}
-        
+    def __init__(self):
         with open('data.json', 'r') as f:
             try:
                 data = json.load(f)
@@ -33,8 +29,6 @@ class User:
                     self.users= data
             except json.JSONDecodeError:
                 pass 
-          
-        usercount = 0
     def checklogin(self,username,password):
         if(len(self.users) > 0):
             if(username in self.users):
@@ -65,13 +59,14 @@ class User:
             clear_terminal()
             
             print("\n\n\n    Please SignUp First!      \n\n\n")
-    def signup(self,username,password,birthday,birthmonth,birthyear,phone_number=None):
+    def signup(self,username,password,birthday,birthmonth,birthyear,role="user",phone_number=None):
         self.username = username
         self.password = password
         self.birthday = birthday
         self.birthmonth = birthmonth
         self.birthyear = birthyear
         self.regdate = str(now)
+        self.role = role
         self.phone_number = phone_number
                                         #چک کردن تکراری نبودن نام کاربری
         if(username in self.users):
@@ -90,6 +85,7 @@ class User:
                     'birthmonth':birthmonth,
                     'birthyear':birthyear,
                     'regdate':str(now),
+                    'role':role,
                     'phone_number':phone_number,
                 }
             with open('data.json', 'w') as f:
@@ -146,5 +142,11 @@ class User:
         else:
             clear_terminal()
             print("Your password is Wrong")
+    def getbirthdata(self,user):
+        day = self.users[user]['birthday']
+        month = self.users[user]['birthmonth']
+        year = self.users[user]['birthyear']
+        birthdatelist = [year,month,day]
+        return birthdatelist
     def __str__(self):
         return f"UserName : {self.username} PhoneNumber : {self.phone_number} Birthdate : {self.birthyear} /  {self.birthmonth} / {self.birthday} Registered Date : {self.regdate}"
