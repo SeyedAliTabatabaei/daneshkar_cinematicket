@@ -156,5 +156,16 @@ class User:
         year = self.users[user]['birthyear']
         birthdatelist = [year,month,day]
         return birthdatelist
+    def getjoindate(self,user):
+        with open('data.json', 'r') as f:
+            try:
+                data = json.load(f)
+                if(data):
+                    self.users= data
+            except json.JSONDecodeError:
+                pass 
+        regdate = self.users[user]['regdate']
+        regdate = datetime.strptime(regdate, "%Y-%m-%d %H:%M:%S.%f")
+        return regdate
     def __str__(self):
         return f"UserName : {self.username} PhoneNumber : {self.phone_number} Birthdate : {self.birthyear} /  {self.birthmonth} / {self.birthday} Registered Date : {self.regdate}"

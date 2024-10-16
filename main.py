@@ -242,7 +242,11 @@ while(True):
                                 if(not userinp5 == "exit"):
                                     inpint = int(userinp5)
                                     selectedmovie = mydict[inpint]
-                                    cinemaobj.book_seat(selectedmovie,currentuser)
+                                    monthjoined = cinemaobj.apply_discount(currentuser)
+                                    if(monthjoined > 1):
+                                        cinemaobj.book_seat(selectedmovie,currentuser,monthjoined)
+                                    else:
+                                        cinemaobj.book_seat(selectedmovie,currentuser)
                                 if(userinp5 == "exit"):
                                     k.clear_terminal()
                                     break

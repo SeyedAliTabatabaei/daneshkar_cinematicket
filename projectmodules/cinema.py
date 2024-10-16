@@ -11,6 +11,7 @@ class managecinema:
                 self.data = data
         except:
             pass
+
     def showtimelist(self):
         mylist = self.data.keys()
         counter = 1
@@ -22,7 +23,15 @@ class managecinema:
             counter += 1
         print(f'\n For Exit Type "exit" \n')    
         return res
-    def book_seat(self,movie,user):
+    def apply_discount(self,user):
+    
+        joindate = userobj.getjoindate(user)
+        joinmonth = joindate.strftime('%m')
+        joinmonth = int(joinmonth)
+        currentmonth = int(now.strftime('%m'))
+        monthcount = currentmonth - joinmonth
+        return monthcount
+    def book_seat(self,movie,user,monthjoined=None):
         amount = 100
         birthdaylist = userobj.getbirthdata(user)
         if(birthdaylist[1] == now.strftime('%m') and birthdaylist[2] == now.strftime("%d")):
@@ -40,6 +49,10 @@ class managecinema:
                 if(seats_left >= 1):
                     if(int(time) > int(now.strftime('%H'))):
                         k.clear_terminal()
+                        if(monthjoined > 1):
+                            amount = (amount*monthjoined)/100
+                            print(f"{amount}% Discount Applied to Your ticket for {amount} Month of your join!")
+
                         print(f'Ticket Price : {amount}$ Successfully Payed!  - {movie} Movie At {time}:00 Reservation Completed! \n')
                         with open("showtimes.json",'w') as f:
                             json.dump(self.data,f)
@@ -51,5 +64,3 @@ class managecinema:
             k.clear_terminal()
 
             print(f"Sorry! You Have To Be Above {age_limit} Years Old To Watch This Movie! \n")
-    def apply_discount(self,user):
-        pass
