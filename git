@@ -1,0 +1,113 @@
+[33mcommit e79297b2b1cae91becf97a17d0cf8aa23c29839b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mshowtime[m[33m, [m[1;31morigin/showtime[m[33m)[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Tue Oct 15 04:05:09 2024 +0330
+
+    cinema menu added / movie-show time list added / book a show time added
+
+[33mcommit 50cd4fdfa9e3b0451436904ddfd5220700f63245[m[33m ([m[1;31morigin/bank[m[33m, [m[1;32mbank[m[33m)[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Sun Oct 13 20:27:07 2024 +0330
+
+    username update bug fixed
+
+[33mcommit 28aea4f490b31b240529695104158a43c6b6d54c[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Sun Oct 13 20:17:28 2024 +0330
+
+    Bugs Fixed / Update username added has affect on bankdata.json/ Today Date added to Bank Manage Profile / BirthDay,Birthmonth,BirthYear Added seperately
+
+[33mcommit 6443f69cdb770602fac01c7c99b861be004be087[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Sun Oct 13 18:41:25 2024 +0330
+
+    Silver And Gold plan Cashbacks completed
+
+[33mcommit b87c04e6c77e8446c3cd7876f2f6d1d0eef9b923[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Sat Oct 12 05:41:17 2024 +0330
+
+    Cashback for plans added / day remaining counter added / tansaction discount counter added
+
+[33mcommit 0a10d5c02999dea6f663de7ee686002e522d7043[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Sat Oct 12 04:57:01 2024 +0330
+
+    Change remaining status
+
+[33mcommit 7b76330b12ca020f0eab66f236849880ca79b94a[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Sat Oct 12 04:53:02 2024 +0330
+
+    Plan Subscription added and completed / Bugs Fixed / plane remaining added /
+
+[33mcommit 1984ccf6a1e0f2b7a480a1126da0e192da329a25[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Thu Oct 10 05:11:04 2024 +0330
+
+    Bank withdraw and Transfer Money added !
+
+[33mcommit 7a517ffd716771d5dda458e88d9ffdfc24386670[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Thu Oct 10 04:38:30 2024 +0330
+
+    bank select added / bank menu list added / bank get balance-deposit added / Bugs fixed
+
+[33mcommit 43643f204680be6e76c3742918d3cd1bd30260d0[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Tue Oct 8 04:09:53 2024 +0330
+
+    Listing opened bank accounts in menu added
+
+[33mcommit 6fb0b8679e0ff306b6cf260921829c9b73e7808f[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Tue Oct 8 03:48:45 2024 +0330
+
+    bankdata save to json file added!
+
+[33mcommit d3441f11beb25226dd461fef3050d9118f68917c[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Tue Oct 8 03:25:47 2024 +0330
+
+    Bank Menu Added ! | Bank Options Added! | Bank Account Creating Method Added!
+
+[33mcommit 176c8982362b7fec0838d32a516c1309a613a8c3[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Mon Oct 7 09:43:54 2024 +0330
+
+    user module splited as karbar.py / menu bugs fixed
+
+[33mcommit 750ddaea07b74d1cc0b5665c3504ea32ca2ca122[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Mon Oct 7 08:57:50 2024 +0330
+
+    user register date added - saving data bugs fixed - user birthdate added
+
+[33mcommit 550062957fe19385aeeff5e05a1257451acd01bb[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Mon Oct 7 03:01:02 2024 +0330
+
+    saving data in data.json added!
+
+[33mcommit f3e5c8fd384bd1b50125d365d176142a73bfc984[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Mon Oct 7 02:24:13 2024 +0330
+
+    logging added!
+
+[33mcommit a53479b7bc771c89f207023e6f96d9ad0cbbd759[m[33m ([m[1;31morigin/cinema_ticket[m[33m, [m[1;32mcinema_ticket[m[33m)[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Mon Oct 7 01:49:02 2024 +0330
+
+    os terminal cleaning added!
+
+[33mcommit 7c2f8d1341a5a8081eb08e5a3f66a3e12d52e6cd[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Mon Oct 7 01:17:01 2024 +0330
+
+    HomeWork 3 codes Added to the project
+
+[33mcommit 08c8432d80320690c4c655df8dd1f8fd80976abc[m
+Author: sinatb <seyedalitabatabaeishere@gmail.com>
+Date:   Mon Oct 7 01:03:39 2024 +0330
+
+    main.py added!
