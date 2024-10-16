@@ -49,9 +49,10 @@ class managecinema:
                 if(seats_left >= 1):
                     if(int(time) > int(now.strftime('%H'))):
                         k.clear_terminal()
-                        if(monthjoined > 1):
-                            amount = (amount*monthjoined)/100
-                            print(f"{amount}% Discount Applied to Your ticket for {amount} Month of your join!")
+                        if(monthjoined != None):
+                            if(monthjoined >= 1):
+                                amount = (amount*monthjoined)/100
+                                print(f"{amount}% Discount Applied to Your ticket for {amount} Month of your join!")
 
                         print(f'Ticket Price : {amount}$ Successfully Payed!  - {movie} Movie At {time}:00 Reservation Completed! \n')
                         with open("showtimes.json",'w') as f:
